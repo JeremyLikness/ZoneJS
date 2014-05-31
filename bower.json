@@ -1,0 +1,16 @@
+{
+  "name": "zonejs",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.0.3",
+    "modernizr": "~2.6.2",
+    "jquery": "~2.1.1",
+    "angular": "~1.2.16",
+    "animate.css": "~3.1.1",
+    "highlightjs": "~8.0.0"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "jquery": "~2.1.1"
+  }
+}

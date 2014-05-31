@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" data-ng-app="zoneApp">
+    <head>
+        <meta charset="utf-8">
+        <title>ZoneJs</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/animate.css/animate.css" />
+        <link rel="stylesheet" href="../bower_components/highlightjs/styles/default.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="../bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+
+    </head>
+    <body data-key-press="">
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <div class="container">
+            <div class="header">
+                <h3 class="text-muted">{{title}}</h3>
+            </div>
+
+            <div class="jumbotron" slide-carousel="" data-key-press>
+
+                <section data-slide-title="ZoneJS" class="no-display">
+                    <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
+                    <img src="images/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig"/>
+                    <h2 class="animated fadeInLeftBig">by Jeremy Likness</h2>
+                    <div class="animated bounceInRight"><strong>Principal Consultant</strong></div>
+                    <div class="animated bounceInLeft"><span class="glyphicon glyphicon-user"></span>&nbsp;<a class="small" href="http://twitter.com/JeremyLikness" target="_blank">@JeremyLikness</a></div>
+                </section>
+
+                <section data-slide-title="About Wintellect" class="uninitialized">
+                    <h2>who we are</h2>
+                    <p class="small">Founded by top experts on Microsoft &mdash; Jeffrey Richter, Jeff Prosise, and John Robbins &mdash; we pull out all the stops to help
+                        our customers achieve their goals through advanced software-based consulting and training solutions.</p>
+                    <div class="half-panel animated fadeInUp">
+                        <h3>consulting</h3>
+                        <p class="small"><em>Wintellect helps you build better software, faster, tackling the tough projects and solving the software and technology questions that
+                        help you transform your business.</em></p>
+                        <ul class="small">
+                            <li>Architecture, analysis, and design</li>
+                            <li>Full lifecycle software development</li>
+                            <li>Debugging and Performance tuning</li>
+                            <li>Database design and development</li>
+                        </ul>
+                    </div>
+                    <div class="half-panel animated fadeInUp">
+                        <h3>training</h3>
+                        <p class="small"><em>Wintellect's courses are written and taught by some of the biggest and most respected names in the
+                            Microsoft programming industry.</em></p>
+                        <ul class="small">
+                            <li>Learn from the best. Access the same training Microsoft's developers enjoy</li>
+                            <li>Real world knowledge and solutions on both current and cutting edge technologies</li>
+                            <li>Flexibility in training options &mdash; onsite, virtual, and on-demand</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section data-slide-title="Sample Code" class="no-display"><pre><code>
+if (!!!$(slide).data('highlighted')) {
+    $('pre code').each(function(i, e) { hl.highlightBlock(e);});
+        $(slide).data('highlighted', true);
+    }
+    $(slide).className = 'animated ' + dt;
+</code></pre>
+                </section>
+            </div>
+
+            <div class="footer">
+                <p>&copy 2014 Wintellect. All Rights Reserved.</p>
+            </div>
+
+        </div>
+
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="../bower_components/bootstrap/js/affix.js"></script>
+        <script src="../bower_components/bootstrap/js/alert.js"></script>
+        <script src="../bower_components/bootstrap/js/dropdown.js"></script>
+        <script src="../bower_components/bootstrap/js/tooltip.js"></script>
+        <script src="../bower_components/bootstrap/js/modal.js"></script>
+        <script src="../bower_components/bootstrap/js/transition.js"></script>
+        <script src="../bower_components/bootstrap/js/button.js"></script>
+        <script src="../bower_components/bootstrap/js/popover.js"></script>
+        <script src="../bower_components/bootstrap/js/carousel.js"></script>
+        <script src="../bower_components/bootstrap/js/scrollspy.js"></script>
+        <script src="../bower_components/bootstrap/js/collapse.js"></script>
+        <script src="../bower_components/bootstrap/js/tab.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <script src="scripts/directives/slideCarousel.js"></script>
+        <script src="scripts/directives/keyPress.js"></script>
+        <script src="scripts/services/keymap.js"></script>
+        <script src="scripts/services/pubSub.js"></script>
+        <script src="scripts/services/title.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
