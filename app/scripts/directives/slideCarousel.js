@@ -31,41 +31,39 @@
                 }
             }
 
-            pubSub.subscribe('keyPress', function (payload) {
-                if (payload.keyCode === key.SPACE || payload.keyCode === key.RIGHT_ARROW) {
-                    if (cur + 1 < slides.length) {
-                        animate({
-                            slide: slides[cur],
-                            direction: 'out',
-                            dt: defaultTransitionOut
-                        });
-                        cur += 1;
-                        setTitle(slides[cur]);
-                        animate({
-                            slide: slides[cur],
-                            direction: 'in',
-                            dt: defaultTransitionIn
-                        });
-                    }
+            pubSub.subscribe('nextSlide', function () {
+                if (cur + 1 < slides.length) {
+                    animate({
+                        slide: slides[cur],
+                        direction: 'out',
+                        dt: defaultTransitionOut
+                    });
+                    cur += 1;
+                    setTitle(slides[cur]);
+                    animate({
+                        slide: slides[cur],
+                        direction: 'in',
+                        dt: defaultTransitionIn
+                    });
+                    pubSub.publish('currentSlide', { currentSlide: cur });
                 }
-                else if (payload.keyCode === key.LEFT_ARROW || payload.keyCode === key.BACKSPACE) {
-                    if (cur > 0) {
-                        animate({
-                            slide: slides[cur],
-                            direction: 'out',
-                            dt: defaultTransitionOut
-                        });
-                        cur -= 1;
-                        setTitle(slides[cur]);
-                        animate({
-                            slide: slides[cur],
-                            direction: 'in',
-                            dt: defaultTransitionIn
-                        });
-                    }
-                }
-                else {
-                    console.log(payload.keyCode);
+            });
+
+            pubSub.subscribe('previousSlide', function () {
+                if (cur > 0) {
+                    animate({
+                        slide: slides[cur],
+                        direction: 'out',
+                        dt: defaultTransitionOut
+                    });
+                    cur -= 1;
+                    setTitle(slides[cur]);
+                    animate({
+                        slide: slides[cur],
+                        direction: 'in',
+                        dt: defaultTransitionIn
+                    });
+                    pubSub.publish('currentSlide', { currentSlide: cur });
                 }
             });
 
@@ -86,6 +84,8 @@
                 direction: 'in',
                 dt: defaultTransitionIn
             });
+
+            pubSub.publish('currentSlide', { currentSlide: 0 });
         }
 
         return {

@@ -29,10 +29,10 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted">{{title}}</h3>
+                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left no-display" style="margin-right: 20px;" data-back-button></span>{{title}}</h3>
             </div>
 
-            <div class="jumbotron" slide-carousel="" data-key-press>
+            <div class="jumbotron" slide-carousel="" data-key-press data-slide-touch>
 
                 <section data-slide-title="ZoneJS" class="no-display">
                     <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
@@ -42,7 +42,7 @@
                     <div class="animated bounceInLeft"><span class="glyphicon glyphicon-user"></span>&nbsp;<a class="small" href="http://twitter.com/JeremyLikness" target="_blank">@JeremyLikness</a></div>
                 </section>
 
-                <section data-slide-title="About Wintellect" class="uninitialized">
+                <section data-slide-title="About Wintellect" class="no-display">
                     <h2>who we are</h2>
                     <p class="small">Founded by top experts on Microsoft &mdash; Jeffrey Richter, Jeff Prosise, and John Robbins &mdash; we pull out all the stops to help
                         our customers achieve their goals through advanced software-based consulting and training solutions.</p>
@@ -124,6 +124,8 @@ if (!!!$(slide).data('highlighted')) {
         <script src="scripts/main.js"></script>
         <script src="scripts/directives/slideCarousel.js"></script>
         <script src="scripts/directives/keyPress.js"></script>
+        <script src="scripts/directives/slideTouch.js"></script>
+        <script src="scripts/directives/backButton.js"></script>
         <script src="scripts/services/keymap.js"></script>
         <script src="scripts/services/pubSub.js"></script>
         <script src="scripts/services/title.js"></script>

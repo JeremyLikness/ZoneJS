@@ -26,7 +26,12 @@
             this._subscriptions[id] = undefined;
         };
         Message.prototype.notify = function (payload) {
+            console.log('Notify ' + this.message);
+            console.log(payload);
             var index;
+            if (angular.isUndefined(payload)) {
+                payload = {};
+            }
             payload.$$cancel = false;
             for(index = 0; index < this._subscriptions.length && !payload.$$cancel; index++) {
                 if(this._subscriptions[index]) {
