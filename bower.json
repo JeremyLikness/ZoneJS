@@ -7,7 +7,8 @@
     "jquery": "~2.1.1",
     "angular": "~1.2.16",
     "animate.css": "~3.1.1",
-    "highlightjs": "~8.0.0"
+    "highlightjs": "~8.0.0",
+    "zone": "~0.2.4"
   },
   "devDependencies": {},
   "resolutions": {

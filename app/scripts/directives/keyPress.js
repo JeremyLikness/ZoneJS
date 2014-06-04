@@ -1,4 +1,4 @@
-/* global angular */
+/* global angular, zone */
 (function (app) {
 
     'use strict';
@@ -11,6 +11,7 @@
             link: function (scope, element) {
                 var elm = $(element);
                 elm.bind('keydown keypress', function (e) {
+                    zone.marker = 'Key Press';
                     pubSub.publish('keyPress', e);
                 });
             }

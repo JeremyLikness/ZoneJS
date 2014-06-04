@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" data-ng-app="zoneApp">
+<html class="no-js">
     <head>
         <meta charset="utf-8">
         <title>ZoneJs</title>
@@ -29,7 +29,7 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left no-display" style="margin-right: 20px;" data-back-button></span>{{title}}</h3>
+                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span>{{title}}&nbsp;<span class="small pull-right">{{diff | number:0}}ms&nbsp;/&nbsp;{{totalDiff | number:0}}ms</span></h3>
             </div>
 
             <div class="jumbotron" slide-carousel="" data-key-press data-slide-touch>
@@ -80,7 +80,7 @@ if (!!!$(slide).data('highlighted')) {
             </div>
 
             <div class="footer">
-                <p>&copy 2014 Wintellect and Jeremy Likness. All Rights Reserved.</p>
+                <p>Slideshow powered by <a href="http://angularjs.org/" target="_blank">AngularJS</a>.</p>
             </div>
 
         </div>
@@ -92,6 +92,7 @@ if (!!!$(slide).data('highlighted')) {
         <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="../bower_components/angular/angular.js"></script>
         <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+        <script src="../bower_components/zone/zone.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

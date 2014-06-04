@@ -26,8 +26,6 @@
             this._subscriptions[id] = undefined;
         };
         Message.prototype.notify = function (payload) {
-            console.log('Notify ' + this.message);
-            console.log(payload);
             var index;
             if (angular.isUndefined(payload)) {
                 payload = {};

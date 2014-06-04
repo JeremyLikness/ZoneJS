@@ -1,4 +1,4 @@
-/* global angular */
+/* global angular, zone */
 (function (app) {
 
     'use strict';
@@ -13,6 +13,7 @@
             link: function (scope, element) {
                 var elm = $(element);
                 elm.bind('click', function () {
+                    zone.marker = 'Back Button Click';
                     if (currentSlide !== 0) {
                         pubSub.publish('previousSlide');
                     }

@@ -1,4 +1,4 @@
-/* global angular */
+/* global angular, zone */
 (function (app) {
 
     'use strict';
@@ -13,10 +13,14 @@
             link: function (scope, element) {
                 var elm = $(element);
                 elm.bind('pointerup touchend mouseup', function () {
+                    zone.marker = 'Touch or Pointer Interaction';
                     if (active) {
                         active = false;
                         pubSub.publish('nextSlide');
-                        setTimeout(function () { active = true; }, 100);
+                        setTimeout(function () {
+                            zone.marker = 'Reset Touch Timer';
+                            active = true;
+                        }, 100);
                     }
                 });
             }

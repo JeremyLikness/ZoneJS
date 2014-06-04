@@ -9,12 +9,13 @@
 body {
     padding-top: 20px;
     padding-bottom: 20px;
+    background-color: #f0f0f0;
 }
 
 section {
     position: absolute;
-    margin-top: -50px;
-    margin-left: -50px;
+    margin-top: -47px;
+    margin-left: -55px;
     width: 790px;
     height: 590px;
     padding: 5px;
@@ -22,6 +23,15 @@ section {
 
 code {
     text-align: left;
+}
+
+li {
+    text-align: left;
+}
+
+.backButton {
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -71,7 +81,8 @@ code {
     min-height: 600px;
     min-width: 800px;
     text-align: center;
-    border-bottom: 1px solid #e5e5e5;
+    background: white;
+    border: 1px solid #e5e5e5;
 }
 
 .jumbotron .btn {
