@@ -45,7 +45,10 @@
                         direction: 'in',
                         dt: defaultTransitionIn
                     });
-                    pubSub.publish('currentSlide', { currentSlide: cur });
+                    pubSub.publish('currentSlide', {
+                        currentSlide: cur,
+                        totalSlides: slides.length
+                    });
                 }
             });
 
@@ -63,7 +66,10 @@
                         direction: 'in',
                         dt: defaultTransitionIn
                     });
-                    pubSub.publish('currentSlide', { currentSlide: cur });
+                    pubSub.publish('currentSlide', {
+                        currentSlide: cur,
+                        totalSlides: slides.length
+                    });
                 }
             });
 
@@ -85,7 +91,10 @@
                 dt: defaultTransitionIn
             });
 
-            pubSub.publish('currentSlide', { currentSlide: 0 });
+            pubSub.publish('currentSlide', {
+                currentSlide: 0,
+                totalSlides: slides.length
+            });
         }
 
         return {

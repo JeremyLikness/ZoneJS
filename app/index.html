@@ -29,7 +29,7 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span>{{title}}&nbsp;<span class="small pull-right">{{diff | number:0}}ms&nbsp;/&nbsp;{{totalDiff | number:0}}ms</span></h3>
+                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span>{{title}}&nbsp;<span class="small pull-right">{{diff | date:'ss.sss'}}s&nbsp;/&nbsp;{{totalDiff | date:'mm:ss'}}</span></h3>
             </div>
 
             <div class="jumbotron" slide-carousel="" data-key-press data-slide-touch>
@@ -79,8 +79,8 @@ if (!!!$(slide).data('highlighted')) {
                 </section>
             </div>
 
-            <div class="footer">
-                <p>Slideshow powered by <a href="http://angularjs.org/" target="_blank">AngularJS</a>.</p>
+            <div class="footer" data-ng-controller="footerCtrl as ctrl">
+                <p>Slideshow powered by <a href="http://angularjs.org/" target="_blank">AngularJS</a>. <span class="pull-right" data-ng-show="ctrl.slide > 0">{{ctrl.slide}} of {{ctrl.totalSlides}}</span></p>
             </div>
 
         </div>
@@ -130,6 +130,7 @@ if (!!!$(slide).data('highlighted')) {
         <script src="scripts/services/keymap.js"></script>
         <script src="scripts/services/pubSub.js"></script>
         <script src="scripts/services/title.js"></script>
+        <script src="scripts/controllers/footerController.js"></script>
         <!-- endbuild -->
 </body>
 </html>
