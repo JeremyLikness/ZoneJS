@@ -1,14 +1,81 @@
-/* global angular, jQuery */
+/* global angular, jQuery, zone */
 (function (app, $) {
 
     'use strict';
 
-    app.directive('slideCarousel', ['pubSub', 'keymap', 'title', function (pubSub, key, title) {
+    app.directive('slideCarousel', ['pubSub', 'keymap', 'title', '$timeout', function (pubSub, key, title, t) {
 
         function link(scope, element) {
 
             var slides = element.children(), idx, defaultTransitionIn = 'fadeInRight',
                 defaultTransitionOut = 'bounceOutLeft', cur = 0;
+
+            function makeAnimator(obj, animation) {
+                return function () {
+                    zone.marker = 'Animation';
+                    if (obj.hasClass('no-display')) {
+                        obj.removeClass('no-display');
+                    }
+                    if (obj.hasClass('animated')) {
+                        obj.removeClass('animated');
+                    }
+                    obj.addClass('animated ' + animation);
+                };
+            }
+
+            function delayedAnimations(slide) {
+                var x, data, delayElm, elements = $(slide).children().filter(function () {
+                    return $(this).data('delayedAnimation');
+                });
+                for (x = 0; x < elements.length; x += 1) {
+                    delayElm = $(elements[x]);
+                    data = delayElm.data('delayedAnimation').split(' ');
+                    if (data.length === 2) {
+                        if (!delayElm.hasClass('no-display')) {
+                            delayElm.addClass('no-display');
+                        }
+                        t(makeAnimator(delayElm, data[1]), parseInt(data[0]));
+                    }
+                }
+            }
+
+            function saveAnimations(slide) {
+                var x, saveElm, saved = false, elements = $(slide).children().filter(function () {
+                    return $(this).hasClass('animated');
+                });
+                for (x = 0; x < elements.length; x += 1) {
+                    saveElm = $(elements[x]);
+                    if (!saveElm.data('savedAnimation')) {
+                        saved = true;
+                        saveElm.data('savedAnimation', elements[x].className);
+                    }
+                }
+                return saved;
+            }
+
+            function restoreAnimations(slide) {
+                var x, data, animations, restoreElm, elements = $(slide).children().filter(function () {
+                    return $(this).data('savedAnimation');
+                }), restoreFn = function (animation) {
+                    if (animation !== 'no-display' && animation !== 'animated') {
+                        animations.push(animation);
+                    }
+                };
+
+                for (x = 0; x < elements.length; x += 1) {
+                    restoreElm = $(elements[x]);
+                    data = restoreElm.data('savedAnimation').split(' ');
+                    animations = [];
+                    angular.forEach(data, restoreFn);
+                    if (restoreElm.hasClass('animated')) {
+                        restoreElm.removeClass('animated');
+                    }
+                    if (!restoreElm.hasClass('no-display')) {
+                        restoreElm.addClass('no-display');
+                    }
+                    t(makeAnimator(restoreElm, animations.join(' '), 0));
+                }
+            }
 
             function animate(options) {
                 var animation = options.dt;
@@ -21,6 +88,13 @@
                     animation = $(options.slide).data('animate-out');
                 }
                 options.slide.className = 'animated ' + animation;
+
+                if (options.direction === 'in') {
+                    delayedAnimations(options.slide);
+                    if (!saveAnimations(options.slide)) {
+                        restoreAnimations(options.slide);
+                    }
+                }
             }
 
             function setTitle(slide) {
