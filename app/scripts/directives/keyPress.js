@@ -12,7 +12,9 @@
                 var elm = $(element);
                 elm.bind('keydown keypress', function (e) {
                     zone.marker = 'Key Press';
-                    pubSub.publish('keyPress', e);
+                    scope.$apply(function () {
+                        pubSub.publish('keyPress', e);
+                    });
                 });
             }
         };

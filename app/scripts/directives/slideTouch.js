@@ -16,7 +16,9 @@
                     zone.marker = 'Touch or Pointer Interaction';
                     if (active) {
                         active = false;
-                        pubSub.publish('nextSlide');
+                        scope.$apply(function () {
+                            pubSub.publish('nextSlide');
+                        });
                         setTimeout(function () {
                             zone.marker = 'Reset Touch Timer';
                             active = true;

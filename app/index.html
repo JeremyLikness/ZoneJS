@@ -29,10 +29,10 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span>{{title}}&nbsp;<span class="small pull-right">{{diff | date:'ss.sss'}}s&nbsp;/&nbsp;{{totalDiff | date:'mm:ss'}}</span></h3>
+                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span><span data-slide-touch>{{title}}&nbsp;<span class="small pull-right" data-ng-show="totalDiff">{{diff | date:'ss.sss'}}s&nbsp;/&nbsp;{{totalDiff | date:'mm:ss'}}</span></span></h3>
             </div>
 
-            <div class="jumbotron" slide-carousel="" data-key-press data-slide-touch>
+            <div class="jumbotron" slide-carousel="" data-key-press>
 
                 <section data-slide-title="ZoneJS" class="no-display">
                     <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
@@ -69,11 +69,52 @@
                     </div>
                 </section>
 
-                <section data-slide-title="Why Zone?" class="no-display">
-                    <h1>&nbsp;</h1>
+                <section data-slide-title="Why Zone?" data-ng-controller="whyZoneCtrl as ctrl" class="no-display">
+                    <div class="drop-200"></div>
                     <h1 data-delayed-animation="20 bounceInDown" class="no-display">Why Zone?</h1>
+                    <div class="drop-200"></div>
                     <h2 data-delayed-animation="500 bounceInUp" class="no-display">JavaScript uses an event loop. Events, timeouts, and intervals are asynchronous.</h2>
+                    <div class="drop-200"></div>
+                    <button data-delayed-animation="1000 fadeInUpBig" class="no-display btn btn-danger" data-ng-click="ctrl.onHitMe()" class="btn btn-warning">Hit Me!</button>
 
+                </section>
+
+                <section data-slide-title="Why Zone?" class="no-display">
+                    <div class="drop-200"></div>
+                    <h1>Why Zone?</h1>
+                    <div class="drop-200"></div>
+                    <h2 data-delayed-animation="500 bounceInUp" class="no-display">Asynchronous events can be difficult to troubleshoot.</h2>
+                    <div class="drop-200"></div>
+                    <button data-delayed-animation="1000 fadeInUpBig" class="no-display btn btn-danger" onclick="setTimeout(function () { throw new Error('ouch!'); }, 0);return true;" class="btn btn-warning">Hit Me!</button>
+                </section>
+
+                <section data-slide-title="JavaScript Event Queue" class="no-display">
+                    <div class="drop-150"></div>
+                    <h2>JavaScript Event Queue</h2>
+                    <div class="stretch-horizontal drop-50"></div>
+                    <div class="stretch-horizontal">
+                        <div class="spacer-left-175 box-green">JavaScript</div>
+                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
+                        <div class="box-red">Event Queue</div>
+                    </div>
+                    <div class="stretch-horizontal drop-25"></div>
+                    <div class="stretch-horizontal">
+                        <div class="spacer-left-175 box-green">Timer</div>
+                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
+                        <div class="box-red">Event Queue</div>
+                    </div>
+                    <div class="stretch-horizontal drop-25"></div>
+                    <div class="stretch-horizontal">
+                        <div class="spacer-left-175 box-green">Keyboard Input</div>
+                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
+                        <div class="box-red">Event Queue</div>
+                    </div>
+                    <div class="stretch-horizontal drop-25"></div>
+                    <div class="stretch-horizontal">
+                        <div class="spacer-left-175 box-green">Button Click</div>
+                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
+                        <div class="box-red">Event Queue</div>
+                    </div>
                 </section>
 
                 <section data-slide-title="Sample Code" class="no-display"><pre><code>
@@ -129,6 +170,8 @@ if (!!!$(slide).data('highlighted')) {
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/zone/myZone.js"></script>
+        <script src="scripts/zone/zoneStackTrace.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/directives/slideCarousel.js"></script>
         <script src="scripts/directives/keyPress.js"></script>
@@ -138,6 +181,7 @@ if (!!!$(slide).data('highlighted')) {
         <script src="scripts/services/pubSub.js"></script>
         <script src="scripts/services/title.js"></script>
         <script src="scripts/controllers/footerController.js"></script>
+        <script src="scripts/controllers/whyZoneController.js"></script>
         <!-- endbuild -->
 </body>
 </html>

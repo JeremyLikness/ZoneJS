@@ -99,9 +99,7 @@
 
             function setTitle(slide) {
                 if ($(slide).data('slideTitle')) {
-                    scope.$apply(function () {
-                        title.setTitle($(slide).data('slideTitle'));
-                    });
+                    title.setTitle($(slide).data('slideTitle'));
                 }
             }
 

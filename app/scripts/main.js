@@ -1,37 +1,10 @@
-/* global angular, hljs, zone, performance */
-(function (hl) {
-    'use strict';
+/* global angular, hljs, zone, Zone */
 
-    var myZone = (function () {
+'use strict';
 
-        var timer = performance ?
-                performance.now.bind(performance) :
-                Date.now.bind(Date);
-        return {
-            marker: '?',
-            start: 0,
-            originalStart: 0,
-            diff: 0,
-            totalDiff: 0,
-            totalTime: 0,
-            apply: function () { },
-            beforeTask: function () {
-                this.originalStart = this.originalStart || timer();
-                this.start = timer();
-                console.log('Entered task');
-            },
-            afterTask: function () {
-                var totalTime = this.totalTime;
-                this.diff = timer() - this.start;
-                this.totalDiff = timer() - this.originalStart;
-                console.log('Exited task ' + zone.marker + ' after ' + this.diff);
-                this.totalTime = totalTime + this.diff;
-                console.log('Total active time: ' + this.totalTime);
-                console.log('Total elapsed time: ' + this.totalDiff);
-                this.apply();
-            }
-        };
-    }());
+(function (hl, fn) {
+
+    $('code').each(function(i, e) { hl.highlightBlock(e);});
 
     function main () {
 
@@ -39,13 +12,15 @@
 
         angular.module('zoneApp', [])
             .run(['$rootScope', 'pubSub', 'keymap', function($rs, pubSub, key) {
+
                 zone.marker = 'module run';
+
                 zone.apply = function () {
-                    $rs.$apply(function () {
-                        $rs.diff = zone.diff;
-                        $rs.totalDiff = zone.totalDiff;
-                    });
+                    $rs.diff = zone.diff;
+                    $rs.totalDiff = zone.totalDiff;
+                    $rs.$digest();
                 };
+
                 $rs.title = 'ZoneJS';
                 $rs.diff = zone.diff;
                 $rs.totalDiff = zone.totalDiff;
@@ -58,15 +33,23 @@
                         pubSub.publish('previousSlide');
                     }
                 });
-            }]);
-
-        $('code').each(function(i, e) { hl.highlightBlock(e);});
+            }])
+            .factory('$exceptionHandler', function () {
+                return function errorCatchAll(exception, cause) {
+                    zone.onError(exception);
+                    console.log(cause);
+                };
+            });
 
         setTimeout(function () {
             angular.bootstrap(document, ['zoneApp']);
-        }, 0);
+        }, 1);
     }
 
-    zone.fork(myZone).run(main);
+    fn(main);
 
-})(hljs);
+})(hljs, function (m) { zone.fork(Zone.myZone).run(m); });
+
+// function (m) { zone.fork().run(m); }
+// function (m) { zone.fork(Zone.myZone).run(m); }
+// function (m) { zone.fork(Zone.callStack).run(m); }
