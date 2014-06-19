@@ -20,7 +20,7 @@
             beforeTask: function () {
                 this.originalStart = this.originalStart || timer();
                 this.start = timer();
-                console.log('Entered task');
+                console.log('\nEntered task');
             },
             afterTask: function () {
                 var totalTime = this.totalTime;

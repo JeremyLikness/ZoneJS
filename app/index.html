@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>ZoneJs</title>
-        <meta name="description" content="">
+        <meta name="description" content="Presentation: ZoneJS">
         <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/x-icon" href="favicon.ico"/>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
@@ -32,7 +33,7 @@
                 <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span><span data-slide-touch>{{title}}&nbsp;<span class="small pull-right" data-ng-show="totalDiff">{{diff | date:'ss.sss'}}s&nbsp;/&nbsp;{{totalDiff | date:'mm:ss'}}</span></span></h3>
             </div>
 
-            <div class="jumbotron" slide-carousel="" data-key-press>
+            <div class="jumbotron" data-slide-carousel="" data-key-press>
 
                 <section data-slide-title="ZoneJS" class="no-display">
                     <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
@@ -73,58 +74,94 @@
                     <div class="drop-200"></div>
                     <h1 data-delayed-animation="20 bounceInDown" class="no-display">Why Zone?</h1>
                     <div class="drop-200"></div>
-                    <h2 data-delayed-animation="500 bounceInUp" class="no-display">JavaScript uses an event loop. Events, timeouts, and intervals are asynchronous.</h2>
+                    <h2 data-delayed-animation="500 bounceInUp" class="no-display">JavaScript uses an event loop. Scripts are mostly asynchronous. This means you lose
+                    context when you:</h2>
+                    <ul data-delayed-animation="1000 fadeInDownBig"><li>Run code on a timer</li><li>Run code that is triggered by a DOM event</li><li>Run code to process data that was fetched asnychronously</li></ul>
                     <div class="drop-200"></div>
-                    <button data-delayed-animation="1000 fadeInUpBig" class="no-display btn btn-danger" data-ng-click="ctrl.onHitMe()" class="btn btn-warning">Hit Me!</button>
+                    <button data-delayed-animation="1500 fadeInUpBig" class="no-display btn btn-danger" data-ng-click="ctrl.onHitMe()" class="btn btn-warning">Hit Me!</button>
 
-                </section>
-
-                <section data-slide-title="Why Zone?" class="no-display">
-                    <div class="drop-200"></div>
-                    <h1>Why Zone?</h1>
-                    <div class="drop-200"></div>
-                    <h2 data-delayed-animation="500 bounceInUp" class="no-display">Asynchronous events can be difficult to troubleshoot.</h2>
-                    <div class="drop-200"></div>
-                    <button data-delayed-animation="1000 fadeInUpBig" class="no-display btn btn-danger" onclick="setTimeout(function () { throw new Error('ouch!'); }, 0);return true;" class="btn btn-warning">Hit Me!</button>
                 </section>
 
                 <section data-slide-title="JavaScript Event Queue" class="no-display">
                     <div class="drop-150"></div>
                     <h2>JavaScript Event Queue</h2>
                     <div class="stretch-horizontal drop-50"></div>
-                    <div class="stretch-horizontal">
-                        <div class="spacer-left-175 box-green">JavaScript</div>
-                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
-                        <div class="box-red">Event Queue</div>
+                    <div class="align-center no-display" data-delayed-animation="1000 bounceInLeft">
+                        <span class="box-green">JavaScript</span>
+                        <span class="drop-top-25 glyphicon glyphicon-arrow-right"></span>
+                        <span class="box-red">Event Queue</span>
                     </div>
                     <div class="stretch-horizontal drop-25"></div>
-                    <div class="stretch-horizontal">
-                        <div class="spacer-left-175 box-green">Timer</div>
-                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
-                        <div class="box-red">Event Queue</div>
+                    <div class="align-center no-display" data-delayed-animation="3000 bounceInLeft">
+                        <span class="box-green">Timer</span>
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        <span class="box-red">Event Queue</span>
                     </div>
                     <div class="stretch-horizontal drop-25"></div>
-                    <div class="stretch-horizontal">
-                        <div class="spacer-left-175 box-green">Keyboard Input</div>
-                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
-                        <div class="box-red">Event Queue</div>
+                    <div class="align-center no-display" data-delayed-animation="5000 bounceInLeft">
+                        <span class="box-green">Keyboard Input</span>
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        <span class="box-red">Event Queue</span>
                     </div>
                     <div class="stretch-horizontal drop-25"></div>
-                    <div class="stretch-horizontal">
-                        <div class="spacer-left-175 box-green">Button Click</div>
-                        <div class="pull-left vertical-middle margin-5"><span class="drop-top-25 glyphicon glyphicon-arrow-right"></span></div>
-                        <div class="box-red">Event Queue</div>
+                    <div class="align-center no-display" data-delayed-animation="7000 bounceInLeft">
+                        <span class="box-green">Button Click</span>
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        <span class="box-red">Event Queue</span>
                     </div>
+                    <p>&nbsp;</p>
+                    <p>Every task has it's own "context" unless you want to clobber globals</p>
                 </section>
 
-                <section data-slide-title="Sample Code" class="no-display"><pre><code>
-if (!!!$(slide).data('highlighted')) {
-    $('pre code').each(function(i, e) { hl.highlightBlock(e);});
-        $(slide).data('highlighted', true);
-    }
-    $(slide).className = 'animated ' + dt;
-</code></pre>
+                <section data-slide-title="No Zone" class="no-display" data-ng-controller="noZoneCtrl as ctrl">
+                    <h2>No Zone Implementation</h2>
+                    <pre><code>
+console.log('start');
+console.log('enqueue');
+setTimeout(function () {
+   console.log('task');
+   console.log('dequeue');
+}, 100);
+console.log('end');
+                    </code></pre>
+                    <button class="btn btn-success" data-ng-click="ctrl.onTryMe()">Try Me</button>
                 </section>
+
+                <section data-slide-title="With Zone" class="no-display">
+                    <h2>Zone Implementation</h2>
+                    <div class="stretch-horizontal drop-25"></div>
+                    <pre><code>
+
+Zone.run(function () {
+   console.log('start');
+   setTimeout(function() {
+      console.log('task');
+   }, 100);
+   console.log('end');
+});
+                    </code></pre>
+                </section>
+                <section data-slide-title="Zone Demo" class="no-display">
+                    <h1>Demo: How Does It Work?</h1>
+                    <a href="http://jsfiddle.net" target="_blank">Launch jsFiddle</a>
+                    <h2>... a zone that traps errors</h2>
+                    <h2>... a zone that times tasks</h2>
+                </section>
+
+                <section data-slide-title="Zone Fork and Run" class="no-display">
+                    <h1>Zone Walkthrough: Fork and Run</h1>
+                    <code><pre>
+zone.fork({
+  beforeTask: function () {
+    console.log('hi');
+  }
+}).run(function () {
+  // do stuff
+});
+
+                    </pre></code>
+                </section>
+
             </div>
 
             <div class="footer" data-ng-controller="footerCtrl as ctrl">
@@ -182,6 +219,7 @@ if (!!!$(slide).data('highlighted')) {
         <script src="scripts/services/title.js"></script>
         <script src="scripts/controllers/footerController.js"></script>
         <script src="scripts/controllers/whyZoneController.js"></script>
+        <script src="scripts/controllers/noZoneImpl.js"></script>
         <!-- endbuild -->
 </body>
 </html>

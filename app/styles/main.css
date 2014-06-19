@@ -14,15 +14,25 @@ body {
 
 section {
     position: absolute;
-    margin-top: -47px;
-    margin-left: -55px;
-    width: 790px;
-    height: 590px;
+    display: block;
+    margin-top: -6vh;
+    margin-left: -3vw;
+    min-width: 790px;
+    width: 60vw; /* 790px; */
+    min-height: 590px;
+    height: 60vh; /*590px; */
     padding: 5px;
+    text-align: center;
+    background: white;
+    border: 1px solid #e5e5e5;
 }
 
 code {
     text-align: left;
+}
+
+pre {
+    font-size: 1.1em;
 }
 
 li {
@@ -82,10 +92,11 @@ li {
 .stretch-horizontal {
     clear: both;
     display: block;
-    width: 800px;
+    width: 80vw; /* 800px; */
 }
 
 .align-center {
+    position: relative;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -99,7 +110,6 @@ li {
 .box-green {
     font-size: 1.2em;
     color: white;
-    float: left;
     width: 200px;
     padding: 5px;
     padding: 10px;
@@ -110,7 +120,6 @@ li {
 .box-red {
     font-size: 1.2em;
     color: white;
-    float: left;
     padding: 5px;
     padding: 10px;
     width: 200px;
@@ -149,11 +158,10 @@ li {
 
 /* Main marketing message and sign up button */
 .jumbotron {
-    min-height: 600px;
-    min-width: 800px;
-    text-align: center;
-    background: white;
-    border: 1px solid #e5e5e5;
+    min-height: 600px; /* 600px; */
+    min-width: 800px; /* 800px; */
+    max-height: 75vh;
+    max-width: 75vh;
 }
 
 .jumbotron .btn {
@@ -180,7 +188,7 @@ li {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
-        max-width: 730px;
+        max-width: 80vw;
     }
 
     /* Remove the padding we set earlier */

@@ -13,7 +13,7 @@
                         trace.push(line);
                     });
                 },
-                afterTask: function () {
+                enqueueTask: function () {
                     try {
                         throw new Error(zone.marker);
                     }

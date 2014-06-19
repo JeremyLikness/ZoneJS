@@ -48,8 +48,8 @@
 
     fn(main);
 
-})(hljs, function (m) { zone.fork(Zone.myZone).run(m); });
+})(hljs, function (m) { zone.fork(Zone.zone).run(m); });
 
-// function (m) { zone.fork().run(m); }
+// function (m) { zone.fork(Zone.zone).run(m); }
 // function (m) { zone.fork(Zone.myZone).run(m); }
 // function (m) { zone.fork(Zone.callStack).run(m); }
