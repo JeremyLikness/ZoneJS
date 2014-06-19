@@ -144,8 +144,8 @@ Zone.run(function () {
                 <section data-slide-title="Zone Demo" class="no-display">
                     <h1>Demo: How Does It Work?</h1>
                     <a href="http://jsfiddle.net" target="_blank">Launch jsFiddle</a>
-                    <h2>... a zone that traps errors</h2>
-                    <h2>... a zone that times tasks</h2>
+                    <h2 data-delayed-animation="500 fadeInDownBig">... a zone that traps errors</h2>
+                    <h2 data-delayed-animation="1000 fadeInDownBig">... a zone that times tasks</h2>
                 </section>
 
                 <section data-slide-title="Zone Fork and Run" class="no-display">
@@ -160,6 +160,78 @@ zone.fork({
 });
 
                     </pre></code>
+                    <ul><li>Fork creates child zone (inherits parent) and defines behavior</li><li>Run to execute code within the zone</li></ul>
+                </section>
+
+                <section data-slide-title="Zone 'Turns'" class="no-display">
+                    <h1>Zone Walkthrough: 'Turns'</h1>
+                    <code><pre>
+function myZone() {
+    var _alert = window.alert,
+        _alertConsole = function (msg) { console.log(msg); };
+    return {
+        beforeTask: function () { window.alert = _alertConsole; },
+        afterTask: function () { window.alert = _alert; }
+    };
+}
+                    </pre></code>
+                    <ul><li>beforeTask &mdash; set-up</li><li>afterTask &mdash; tear down</li></ul>
+                </section>
+
+                <section data-slide-title="Zone 'Turns' Continued" class="no-display">
+                    <h1>Zone Walkthrough: 'Turns' Continued</h1>
+                    <ul>
+                        <li>enqueueTask &mdash; A function is registered for a turn</li>
+                        <li>dequeueTask &mdash; A function ends (therefore ending the turn)</li></ul>
+                </section>
+
+                <section data-slide-title="Zone Inheritance" class="no-display">
+                    <h1>Zone Walkthrough: Inheritance</h1>
+                    <code><pre>
+function myZone() {
+   return {
+      $afterTask: function (parent) {
+         return function () { /* do stuff before */
+            parent(); /* do stuff after */ }; },
+      '+afterTask': function () { /* runs after parent */ },
+      '-afterTask': function () { /* runs before parent */ },
+   };
+}
+                    </pre></code>
+                </section>
+
+                <section data-slide-title="Zone API" class="no-display">
+                    <h1>Zone Walkthrough: API</h1>
+                    <ul>
+                        <li>onZoneCreated &mdash; Zone is forked (uber-setup)</li>
+                        <li>onError &mdash; Error thrown within the zone</li>
+                    </ul>
+                </section>
+
+                <section data-slide-title="Zone Hooks" class="no-display">
+                    <h1>Zone Walkthrough: Hooks</h1>
+                    <h2 data-delayed-animation="500 fadeIn" class="no-display">setTimeout</h2>
+                    <h2 data-delayed-animation="1500 fadeIn" class="no-display">setInterval</h2>
+                    <h2 data-delayed-animation="2500 fadeIn" class="no-display">alert</h2>
+                    <h2 data-delayed-animation="3500 fadeIn" class="no-display">prompt</h2>
+                    <h2 data-delayed-animation="4500 fadeIn" class="no-display">addEventListener</h2>
+                </section>
+
+                <section data-slide-title="Zone Demo: Zone and Angular" class="no-display">
+                    <h1>Demo: Zone with Angular</h1>
+                    <h2 data-delayed-animation="500 rotateInDownLeft">Bootstrapping Angular</h2>
+                    <h2 data-delayed-animation="1500 rotateInDownLeft">Stacktrace Zone</h2>
+                    <h2 data-delayed-animation="2500 rotateInDownLeft">My Custom Zone</h2>
+                </section>
+
+                <section data-slide-title="ZoneJS Conclusion" class="no-display">
+                    <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
+                    <img src="images/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig"/>
+                    <h2 class="animated fadeInLeftBig">by Jeremy Likness</h2>
+                    <div class="animated bounceInRight"><strong>Principal Consultant</strong></div>
+                    <div class="animated bounceInLeft"><span class="glyphicon glyphicon-user"></span>&nbsp;<a class="small" href="http://twitter.com/JeremyLikness" target="_blank">@JeremyLikness</a></div>
+                    <div class="animated bounceInRight"><h3><a href="https://github.com/angular/zone.js" target="_blank">Angular/Zone.js on GitHub</a></h3></div>
+                    <div class="animated bounceInLeft"><h3><a href="https://github.com/jeremylikness/zonejs" target="_blank">This Deck: JeremyLikness/ZoneJS</a></h3></div>
                 </section>
 
             </div>
