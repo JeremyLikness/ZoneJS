@@ -20,7 +20,7 @@
         <script src="./index_files/modernizr.js"></script>
         <!-- endbuild -->
 
-    <script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+    </head>
     <body data-key-press="">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -29,14 +29,14 @@
 
         <div class="container">
             <div class="header">
-                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button=""></span><span data-slide-touch="" class="ng-binding">ZoneJS&nbsp;<span class="small pull-right ng-binding ng-hide" data-ng-show="totalDiff">s&nbsp;/&nbsp;</span></span></h3>
+                <h3 class="text-muted"><span class="glyphicon glyphicon-circle-arrow-left backButton no-display" data-back-button></span><span data-slide-touch>{{title}}&nbsp;<span class="small pull-right" data-ng-show="totalDiff">{{diff | date:'ss.sss'}}s&nbsp;/&nbsp;{{totalDiff | date:'mm:ss'}}</span></span></h3>
             </div>
 
-            <div class="jumbotron" data-slide-carousel="" data-key-press="">
+            <div class="jumbotron" data-slide-carousel="" data-key-press>
 
-                <section data-slide-title="ZoneJS" class="animated fadeInRight">
+                <section data-slide-title="ZoneJS" class="no-display">
                     <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
-                    <img src="./index_files/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig">
+                    <img src="images/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig"/>
                     <h2 class="animated fadeInLeftBig">by Jeremy Likness</h2>
                     <div class="animated bounceInRight"><strong>Principal Consultant</strong></div>
                     <div class="animated bounceInLeft"><span class="glyphicon glyphicon-user"></span>&nbsp;<a class="small" href="http://twitter.com/JeremyLikness" target="_blank">@JeremyLikness</a></div>
@@ -51,7 +51,7 @@
                     context when you:</h2>
                     <ul data-delayed-animation="1000 fadeInDownBig"><li>Run code on a timer</li><li>Run code that is triggered by a DOM event</li><li>Run code to process data that was fetched asnychronously</li></ul>
                     <div class="drop-200"></div>
-                    <button data-delayed-animation="1500 fadeInUpBig" class="no-display btn btn-danger" data-ng-click="ctrl.onHitMe()">Hit Me!</button>
+                    <button data-delayed-animation="1500 fadeInUpBig" class="no-display btn btn-danger" data-ng-click="ctrl.onHitMe()" class="btn btn-warning">Hit Me!</button>
 
                 </section>
 
@@ -88,14 +88,14 @@
 
                 <section data-slide-title="No Zone" class="no-display" data-ng-controller="noZoneCtrl as ctrl">
                     <h2>No Zone Implementation</h2>
-                    <pre><code class=" hljs matlab">
-<span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'start'</span>);
-<span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'enqueue'</span>);
-setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-   <span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'task'</span>);
-   <span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'dequeue'</span>);
-}, <span class="hljs-number">100</span>);
-<span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'end'</span>);
+                    <pre><code>
+console.log('start');
+console.log('enqueue');
+setTimeout(function () {
+   console.log('task');
+   console.log('dequeue');
+}, 100);
+console.log('end');
                     </code></pre>
                     <button class="btn btn-success" data-ng-click="ctrl.onTryMe()">Try Me</button>
                 </section>
@@ -103,68 +103,71 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
                 <section data-slide-title="With Zone" class="no-display">
                     <h2>Zone Implementation</h2>
                     <div class="stretch-horizontal drop-25"></div>
-                    <pre><code class=" hljs http">
+                    <pre><code>
 
-<span class="matlab"><span class="hljs-transposed_variable">Zone.</span>run(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-   <span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'start'</span>);
-   setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-      <span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'task'</span>);
-   }, <span class="hljs-number">100</span>);
-   <span class="hljs-transposed_variable">console.</span><span class="hljs-built_in">log</span>(<span class="hljs-string">'end'</span>);
+Zone.run(function () {
+   console.log('start');
+   setTimeout(function() {
+      console.log('task');
+   }, 100);
+   console.log('end');
 });
-                    </span></code></pre>
+                    </code></pre>
                 </section>
                 <section data-slide-title="Zone Demo" class="no-display">
                     <h1>Demo: How Does It Work?</h1>
-                    <a href="http://jsfiddle.net/" target="_blank">Launch jsFiddle</a>
+                    <a href="http://jsfiddle.net" target="_blank">Launch jsFiddle</a>
                     <h2 data-delayed-animation="500 fadeInDownBig">... a zone that traps errors</h2>
                     <h2 data-delayed-animation="1000 fadeInDownBig">... a zone that times tasks</h2>
                 </section>
 
                 <section data-slide-title="Zone Fork and Run" class="no-display">
                     <h1>Zone Walkthrough: Fork and Run</h1>
-                    <code class=" hljs scilab"><pre><span class="hljs-transposed_variable">zone.</span>fork({
-  beforeTask: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-    <span class="hljs-transposed_variable">console.</span>log(<span class="hljs-string">'hi'</span>);
+                    <code><pre>
+zone.fork({
+  beforeTask: function () {
+    console.log('hi');
   }
-}).run(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-  <span class="hljs-comment">// do stuff</span>
+}).run(function () {
+  // do stuff
 });
 
                     </pre></code>
                     <ul><li>Fork creates child zone (inherits parent) and defines behavior</li><li>Run to execute code within the zone</li></ul>
                 </section>
 
-                <section data-slide-title="Zone &#39;Turns&#39;" class="no-display">
+                <section data-slide-title="Zone 'Turns'" class="no-display">
                     <h1>Zone Walkthrough: 'Turns'</h1>
-                    <code class=" hljs scilab"><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myZone</span><span class="hljs-params">()</span> {</span>
-    var _alert = <span class="hljs-transposed_variable">window.</span>alert,
-        _alertConsole = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg)</span> { <span class="hljs-title">console</span>.<span class="hljs-title">log</span><span class="hljs-params">(msg)</span>; };</span>
-    <span class="hljs-keyword">return</span> {
-        beforeTask: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> { <span class="hljs-title">window</span>.<span class="hljs-title">alert</span> = <span class="hljs-title">_alertConsole</span>; },</span>
-        afterTask: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> { <span class="hljs-title">window</span>.<span class="hljs-title">alert</span> = <span class="hljs-title">_alert</span>; }</span>
+                    <code><pre>
+function myZone() {
+    var _alert = window.alert,
+        _alertConsole = function (msg) { console.log(msg); };
+    return {
+        beforeTask: function () { window.alert = _alertConsole; },
+        afterTask: function () { window.alert = _alert; }
     };
 }
                     </pre></code>
-                    <ul><li>beforeTask — set-up</li><li>afterTask — tear down</li></ul>
+                    <ul><li>beforeTask &mdash; set-up</li><li>afterTask &mdash; tear down</li></ul>
                 </section>
 
-                <section data-slide-title="Zone &#39;Turns&#39; Continued" class="no-display">
+                <section data-slide-title="Zone 'Turns' Continued" class="no-display">
                     <h1>Zone Walkthrough: 'Turns' Continued</h1>
                     <ul>
-                        <li>enqueueTask — A function is registered for a turn</li>
-                        <li>dequeueTask — A function ends (therefore ending the turn)</li></ul>
+                        <li>enqueueTask &mdash; A function is registered for a turn</li>
+                        <li>dequeueTask &mdash; A function ends (therefore ending the turn)</li></ul>
                 </section>
 
                 <section data-slide-title="Zone Inheritance" class="no-display">
                     <h1>Zone Walkthrough: Inheritance</h1>
-                    <code class=" hljs php"><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myZone</span><span class="hljs-params">()</span> {</span>
-   <span class="hljs-keyword">return</span> {
-      <span class="hljs-variable">$afterTask</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(parent)</span> {</span>
-         <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span> <span class="hljs-comment">/* do stuff before */</span>
-            <span class="hljs-keyword">parent</span>(); <span class="hljs-comment">/* do stuff after */</span> }; },
-      <span class="hljs-string">'+afterTask'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span> <span class="hljs-comment">/* runs after parent */</span> },
-      <span class="hljs-string">'-afterTask'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span> <span class="hljs-comment">/* runs before parent */</span> },
+                    <code><pre>
+function myZone() {
+   return {
+      $afterTask: function (parent) {
+         return function () { /* do stuff before */
+            parent(); /* do stuff after */ }; },
+      '+afterTask': function () { /* runs after parent */ },
+      '-afterTask': function () { /* runs before parent */ },
    };
 }
                     </pre></code>
@@ -173,8 +176,8 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
                 <section data-slide-title="Zone API" class="no-display">
                     <h1>Zone Walkthrough: API</h1>
                     <ul>
-                        <li>onZoneCreated — Zone is forked (uber-setup)</li>
-                        <li>onError — Error thrown within the zone</li>
+                        <li>onZoneCreated &mdash; Zone is forked (uber-setup)</li>
+                        <li>onError &mdash; Error thrown within the zone</li>
                     </ul>
                 </section>
 
@@ -196,7 +199,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
 
                 <section data-slide-title="ZoneJS Conclusion" class="no-display">
                     <h1 class="animated pulse">Thread Local Storage Execution Contexts for JavaScript with Zone</h1>
-                    <img src="./index_files/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig">
+                    <img src="images/jeremylikness_150.png" class="pull-right padded-50 animated fadeInUpBig"/>
                     <h2 class="animated fadeInLeftBig">by Jeremy Likness</h2>
                     <div class="animated bounceInRight"><strong>Principal Consultant</strong></div>
                     <div class="animated bounceInLeft"><span class="glyphicon glyphicon-user"></span>&nbsp;<a class="small" href="http://twitter.com/JeremyLikness" target="_blank">@JeremyLikness</a></div>
@@ -206,8 +209,8 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
 
             </div>
 
-            <div class="footer ng-scope" data-ng-controller="footerCtrl as ctrl">
-                <p>Slideshow powered by <a href="http://angularjs.org/" target="_blank">AngularJS</a>. <span class="pull-right ng-binding ng-hide" data-ng-show="ctrl.slide &gt; 0">0 of 0</span></p>
+            <div class="footer" data-ng-controller="footerCtrl as ctrl">
+                <p>Slideshow powered by <a href="http://angularjs.org/" target="_blank">AngularJS</a>. <span class="pull-right" data-ng-show="ctrl.slide > 0">{{ctrl.slide}} of {{ctrl.totalSlides}}</span></p>
             </div>
 
         </div>
