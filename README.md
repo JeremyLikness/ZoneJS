@@ -1,5 +1,6 @@
 ZoneJS
 ======
+![No longer maintained](https://img.shields.io/maintenance/no/2020)
 
 This is a presentation written entirely in Angular that demonstrates Zones (with Zones integrated).
 
